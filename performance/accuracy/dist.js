@@ -30,63 +30,63 @@ const trialNumber = 10;
  *
  * @type {string}
  */
-const START_POINT = 'start point(°)';
+const START_POINT = 'start point';
 
 /**
  * column name
  *
  * @type {string}
  */
-const END_POINT = 'end point(°)';
+const END_POINT = 'end point';
 
 /**
  * column name
  *
  * @type {string}
  */
-const CRICULAR_DIST = 'cricular dist(m)';
+const CRICULAR_DIST = 'cricular dist';
 
 /**
  * column name
  *
  * @type {string}
  */
-const HUBENY_DIST = 'hubeny dist(m)';
+const HUBENY_DIST = 'hubeny dist';
 
 /**
  * column name
  *
  * @type {string}
  */
-const VINCENTY_DIST = 'vincenty dist(m)';
+const VINCENTY_DIST = 'vincenty dist';
 
 /**
  * column name
  *
  * @type {string}
  */
-const API_DIST = 'api dist(m)';
+const API_DIST = 'api dist';
 
 /**
  * column name
  *
  * @type {string}
  */
-const CRICULAR_DIFF = 'cricular diff(m)';
+const CRICULAR_DIFF = 'cricular diff';
 
 /**
  * column name
  *
  * @type {string}
  */
-const HUBENY_DIFF = 'hubeny diff(m)';
+const HUBENY_DIFF = 'hubeny diff';
 
 /**
  * column name
  *
  * @type {string}
  */
-const VINCENTY_DIFF = 'vincenty diff(m)';
+const VINCENTY_DIFF = 'vincenty diff';
 
 /**
  * 座標リスト
@@ -134,18 +134,21 @@ Promise
       const apiDist = Number(res[i].geoLength);
 
       const cricularDiff = Math.abs(apiDist - cricularDist);
+      const cricularDiffRate = cricularDiff / apiDist * 100;
       const hubenyDiff = Math.abs(apiDist - hubenyDist);
+      const hubenyDiffRate = hubenyDiff / apiDist * 100;
       const vincentyDiff = Math.abs(apiDist - vincentyDist);
+      const vincentyDiffRate = vincentyDiff / apiDist * 100;
 
-      row[START_POINT] = startPoint.join('\n');
-      row[END_POINT] = endPoint.join('\n');
-      row[CRICULAR_DIST] = floatFormat(cricularDist, 3).toLocaleString();
-      row[HUBENY_DIST] = floatFormat(hubenyDist, 3).toLocaleString();
-      row[VINCENTY_DIST] = floatFormat(vincentyDist, 3).toLocaleString();
-      row[API_DIST] = floatFormat(apiDist, 3).toLocaleString();
-      row[CRICULAR_DIFF] = floatFormat(cricularDiff, 3).toLocaleString();
-      row[HUBENY_DIFF] = floatFormat(hubenyDiff, 3).toLocaleString();
-      row[VINCENTY_DIFF] = floatFormat(vincentyDiff, 3).toLocaleString();
+      row[START_POINT] = `${startPoint.map(latlng => floatFormat(latlng, 7)).join('\n')}°`;
+      row[END_POINT] = `${endPoint.map(latlng => floatFormat(latlng, 7)).join('\n')}°`;
+      row[CRICULAR_DIST] = `${floatFormat(cricularDist, 3).toLocaleString()}m`;
+      row[HUBENY_DIST] = `${floatFormat(hubenyDist, 3).toLocaleString()}m`;
+      row[VINCENTY_DIST] = `${floatFormat(vincentyDist, 3).toLocaleString()}m`;
+      row[API_DIST] = `${floatFormat(apiDist, 3).toLocaleString()}m`;
+      row[CRICULAR_DIFF] = `${floatFormat(cricularDiff, 3).toLocaleString()}m` + `\n${floatFormat(cricularDiffRate, 7)}%`;
+      row[HUBENY_DIFF] = `${floatFormat(hubenyDiff, 3).toLocaleString()}m` + `\n${floatFormat(hubenyDiffRate, 7)}%`;
+      row[VINCENTY_DIFF] = `${floatFormat(vincentyDiff, 3).toLocaleString()}m` + `\n${floatFormat(vincentyDiffRate, 7)}%`;
 
       table.push(Object.values(row));
     }
