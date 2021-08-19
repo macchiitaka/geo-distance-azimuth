@@ -23,7 +23,7 @@
     "@types/lodash": "^4.14.172",
     "@types/qs": "^6.9.7",
     "@types/react": "^17.0.19",
-    "@types/superagent": "^4.1.11",
+    "@types/superagent": "^4.1.12",
     "@types/underscore": "^1.11.3"
   }
 }
