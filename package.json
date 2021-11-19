@@ -9,7 +9,7 @@
     "accuracy-direction": "node performance/accuracy/direction.js"
   },
   "dependencies": {
-    "cli-table": "^0.3.6",
+    "cli-table": "^0.3.8",
     "superagent": "^6.1.0"
   }
 }
