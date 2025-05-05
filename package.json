@@ -10,6 +10,6 @@
   },
   "dependencies": {
     "cli-table": "^0.3.11",
-    "superagent": "^9.0.2"
+    "superagent": "^10.2.1"
   }
 }
